@@ -1,15 +1,7 @@
 package ir.kindnesswall.data.local
 
-import android.annotation.SuppressLint
-import android.content.Context
-import android.content.SharedPreferences
-import android.util.Log
-import android.view.View
-import androidx.lifecycle.viewModelScope
 import com.chibatching.kotpref.KotprefModel
 import ir.kindnesswall.data.model.user.User
-import ir.kindnesswall.data.repository.UserRepo
-
 
 /**
  * Created by Farshid since 25/10/19
@@ -38,6 +30,9 @@ object UserInfoPref : KotprefModel(
     var isAdmin by booleanPref(false)
 
     var bearerToken by stringPref("")
+
+
+    val isGuestUser get() = bearerToken.isEmpty()
 
     fun setUser(user: User?) {
         if (user == null) {

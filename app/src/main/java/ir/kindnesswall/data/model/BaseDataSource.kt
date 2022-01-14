@@ -1,11 +1,9 @@
 package ir.kindnesswall.data.model
 
 import android.content.Context
-import android.util.Log
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
-
 
 abstract class BaseDataSource(val context: Context) {
 
@@ -52,7 +50,9 @@ abstract class BaseDataSource(val context: Context) {
             val response = getResult(call)
             when (response.status) {
                 CustomResult.Status.SUCCESS -> {
-                   emit(CustomResult.success(response.data!!))
+                    response.data?.let {
+                        emit(CustomResult.success(it))
+                    }
                     break@loop
                 }
                 CustomResult.Status.ERROR -> {
