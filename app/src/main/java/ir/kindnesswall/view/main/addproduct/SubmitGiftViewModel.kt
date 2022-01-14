@@ -1,14 +1,17 @@
 package ir.kindnesswall.view.main.addproduct
 
 import android.content.Context
-import android.util.Log
-import android.view.View
-import androidx.lifecycle.*
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import ir.kindnesswall.data.local.AppPref
 import ir.kindnesswall.data.local.dao.AppDatabase
 import ir.kindnesswall.data.local.dao.catalog.GiftModel
 import ir.kindnesswall.data.local.dao.submitrequest.RegisterGiftRequestModel
 import ir.kindnesswall.data.model.CustomResult
+import ir.kindnesswall.data.model.PhoneVisibility
 import ir.kindnesswall.data.model.UploadImageResponse
 import ir.kindnesswall.data.repository.FileUploadRepo
 import ir.kindnesswall.data.repository.GiftRepo
@@ -149,6 +152,13 @@ class SubmitGiftViewModel(
         isNew = true
     }
 
-    fun setPhoneVisibility(value : String)= giftRepo.setSettingNumber(viewModelScope,value)
+    fun setPhoneVisibility(phoneVisibility: PhoneVisibility) = giftRepo.setSettingNumber(
+        viewModelScope,
+        when (phoneVisibility) {
+            PhoneVisibility.None -> "none"
+            PhoneVisibility.JustCharities -> "charity"
+            PhoneVisibility.All -> "all"
+        }
+    )
     fun getPhoneVisibility()=giftRepo.getSettingNumber(viewModelScope)
 }
