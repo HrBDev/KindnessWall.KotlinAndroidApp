@@ -8,7 +8,6 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.media.ExifInterface
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
@@ -22,11 +21,7 @@ import com.nguyenhoanglam.imagepicker.ui.imagepicker.ImagePicker
 import ir.kindnesswall.BaseActivity
 import ir.kindnesswall.R
 import ir.kindnesswall.utils.extentions.dp
-import java.io.BufferedReader
-import java.io.File
-import java.io.FileInputStream
 import java.io.IOException
-import java.io.InputStreamReader
 
 /**
  * Created by Farshid Abazari since 25/10/19
@@ -35,7 +30,6 @@ import java.io.InputStreamReader
  *
  * How to call: just call functions
  */
-
 
 /**
  * share string with other apps
@@ -58,33 +52,6 @@ fun shareString(
     sharingIntent.putExtra(Intent.EXTRA_TEXT, message)
 
     context.startActivity(Intent.createChooser(sharingIntent, shareTitle))
-}
-
-
-fun Uri.getFilePathFromUri(): String {
-    try {
-        val fIS = FileInputStream(File(path))
-
-        val isr = InputStreamReader(fIS, "UTF-8")
-        val br = BufferedReader(isr)
-
-        var line: String? = null
-        val path = ""
-
-        while ({ line = br.readLine(); line }() != null) {
-            path.plus(line + '\n')
-        }
-
-        br.close()
-        fIS.close()
-
-        return path
-
-    } catch (e: IOException) {
-        Log.e(">>>>>", "Error occured while reading text file!!")
-    }
-
-    return ""
 }
 
 fun getRoundBottomSheet(
