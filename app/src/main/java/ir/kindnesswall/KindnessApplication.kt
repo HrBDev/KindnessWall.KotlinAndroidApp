@@ -4,6 +4,7 @@ import android.app.Application
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import androidx.core.content.getSystemService
 import androidx.core.os.ConfigurationCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -68,7 +69,7 @@ class KindnessApplication : Application(), LifecycleObserver {
 
     private fun deleteLegacyNotificationChannel() {
         if (Build.VERSION.SDK_INT >= 26) {
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val manager = getSystemService<NotificationManager>() ?: return
             manager.deleteNotificationChannel("uploadChannel")
         }
     }

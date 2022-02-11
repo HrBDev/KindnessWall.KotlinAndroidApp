@@ -3,6 +3,7 @@ package ir.kindnesswall.utils.extentions
 import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import androidx.core.content.getSystemService
 
 
 /**
@@ -16,9 +17,8 @@ import android.view.inputmethod.InputMethodManager
  *
  */
 
-fun Activity.hideKeyboard(){
-    val inputMethodManager =
-        getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+fun Activity.hideKeyboard() {
+    val inputMethodManager = getSystemService<InputMethodManager>() ?: return
 
     if (inputMethodManager.isAcceptingText)
         inputMethodManager.hideSoftInputFromWindow(

@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.getSystemService
 import ir.kindnesswall.R
 import ir.kindnesswall.factory.ActionModelFactory
 
@@ -59,8 +60,7 @@ object NotificationHandler {
     }
 
     private fun notifyMessage(context: Context, builder: NotificationCompat.Builder) {
-        val notificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = context.getSystemService<NotificationManager>() ?: return
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val channelID = "Notifications"// The id of the channel.
