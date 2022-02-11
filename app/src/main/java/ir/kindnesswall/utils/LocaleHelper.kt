@@ -4,6 +4,7 @@ import android.annotation.TargetApi
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Build
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import java.util.*
 
@@ -41,10 +42,7 @@ object LocaleHelper {
 
     private fun persist(context: Context?, language: String?) {
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        val editor = preferences.edit()
-
-        editor.putString(SELECTED_LANGUAGE, language)
-        editor.apply()
+         preferences.edit { putString(SELECTED_LANGUAGE, language) }
     }
 
     @TargetApi(Build.VERSION_CODES.N)
